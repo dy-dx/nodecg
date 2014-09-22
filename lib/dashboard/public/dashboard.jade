@@ -4,7 +4,7 @@ mixin ie(condition)
     | <![endif]-->
 
 doctype html
-html(lang="en")
+html(lang="en" ng-app="ncgDashboard")
     head
         meta(http-equiv="X-UA-Compatible", content="IE=edge; charset=UTF-8")
         meta(name="viewport", content="width=device-width", initial-scale=1)
@@ -17,17 +17,10 @@ html(lang="en")
         //Bower component CSS
         link(rel='stylesheet', href='/components/fontawesome/css/font-awesome.min.css')
         link(rel='stylesheet', href='/components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css')
+        link(rel='stylesheet', href='/components/angular/angular-csp.css')
 
         //Custom styles for this template
         link(rel='stylesheet', href='/dashboard/dashboard.css')
-
-        //Bundle CSS, re-write this and consider using mixins/includes/partials? or maybe just link to them lol???
-        each bndl in bundles
-            //- only add the tag if there is a style, empty tags can cause long timeout delays
-            if bndl.admin.css
-                each style in bndl.admin.css
-                    style(type='text/css').
-                        !{ style }
 
         //HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
         +ie('if lt IE 9')
@@ -45,16 +38,19 @@ html(lang="en")
 
         //Bundle panels, re-write this and consider using mixins/includes/partials?
         div.container
-            div.dashboard-panels
-                each bndl in bundles
-                    each markup in bndl.admin.html
-                        !=markup
+            div.dashboard-panels(ng-controller='PanelsController')
+                div(ng-include src="template.url")
+                //
+                    each bndl in bundles
+                        each markup in bndl.admin.html
+                            !=markup
 
 
         //Core JavaScript
         //==================================================
         //Placed at the end of the document so the pages load faster
         script(src='/components/jquery/dist/jquery.min.js')
+        script(src='/components/angular/angular.js')
         script(src='/components/bootstrap/dist/js/bootstrap.min.js')
         script(src='/components/bootstrap/js/tooltip.js')
         script(src='/components/bootstrap/js/popover.js')
@@ -66,19 +62,5 @@ html(lang="en")
         script(src='/socket.io/socket.io.js')
         script(src='/nodecg-api.js')
 
+        script(src='/dashboard/controllers.js')
         script(src='/dashboard/dashboard.js')
-
-        //Bundle JS, re-write this and consider using mixins/includes/partials? or maybe just link to them lol???
-        each bndl in bundles
-            //- only add the tag if there is a script, empty tags can cause long timeout delays
-            if bndl.admin.js
-                each script in bndl.admin.js
-                    script(type='text/javascript').
-                        try {
-                            (function (nodecg) {
-                                !{ script }
-                            })(new NodeCG('#{ bndl.name }'));
-                        } catch (err) {
-                            console.error("[NODECG] Panel for bundle #{ bndl.name } threw error: "+ err.message);
-                        }
-

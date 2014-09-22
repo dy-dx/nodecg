@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ncgDashboard">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge; charset=UTF-8">
+    <meta name="viewport" content="width=device-width" initial-scale="1">
+    <title>NodeCG dashboard</title>
+    <!--Bootstrap YETI theme CSS-->
+    <link rel="stylesheet" href="/css/bootstrap.yeti.min.css">
+    <!--Bower component CSS-->
+    <link rel="stylesheet" href="/components/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="/components/angular/angular-csp.css">
+    <!--Custom styles for this template-->
+    <link rel="stylesheet" href="/dashboard/dashboard.css">
+    <!--HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries--><!--[if lt IE 9]>
+    <script src="/components/html5shiv/dist/html5shiv.min.js"></script>
+    <script src="/components/respond/dest/respond.min.js"></script><![endif]-->
+  </head>
+  <body>
+    <div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header"><a href="#" class="navbar-brand">NodeCG dashboard</a></div>
+      </div>
+    </div>
+    <!--Spacer-->
+    <p></p>
+    <!--Bundle panels, re-write this and consider using mixins/includes/partials?-->
+    <div class="container">
+      <div ng-controller="PanelsController" class="dashboard-panels">
+        <div ng-include src="template.url"></div>
+        <!--
+        each bndl in bundles
+            each markup in bndl.admin.html
+                !=markup
+        
+        
+        -->
+      </div>
+    </div>
+    <!--Core JavaScript-->
+    <!--==================================================-->
+    <!--Placed at the end of the document so the pages load faster-->
+    <script src="/components/jquery/dist/jquery.min.js"></script>
+    <script src="/components/angular/angular.js"></script>
+    <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/components/bootstrap/js/tooltip.js"></script>
+    <script src="/components/bootstrap/js/popover.js"></script>
+    <script src="/components/masonry/dist/masonry.pkgd.min.js"></script>
+    <script src="/components/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="/components/moment/min/moment.min.js"></script>
+    <script src="/components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/nodecg-api.js"></script>
+    <script src="/dashboard/controllers.js"></script>
+    <script src="/dashboard/dashboard.js"></script>
+  </body>
+</html>
